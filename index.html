@@ -111,29 +111,43 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     /*
         an opening and closing set of slash asterisks for block comments.
     */
-
+    //getElementsByTagName
 
     if(document.getElementsByClassName('flex-item').length === 0) {
-      document.getElementById('topContacts').style.display = 'none';
+      document.getElementById('topContacts').style.backgroundcolor = '#000000';
     }
     if(document.getElementsByTagName('h1').length === 0) {
-      document.getElementById('header').style.display = 'none';
+      document.getElementById('header').style.backgroundcolor = '#000000';
     }
     if(document.getElementsByClassName('work-entry').length === 0) {
-      document.getElementById('workExperience').style.display = 'none';
+      document.getElementById('workExperience').style.backgroundcolor = '#000000';
     }
     if(document.getElementsByClassName('project-entry').length === 0) {
-      document.getElementById('projects').style.display = 'none';
+      document.getElementById('projects').style.backgroundcolor = '#000000';
     }
     if(document.getElementsByClassName('education-entry').length === 0) {
-      document.getElementById('education').style.display = 'none';
+      document.getElementById('education').style.backgroundcolor = '#000000';
     }
     if(document.getElementsByClassName('flex-item').length === 0) {
-      document.getElementById('lets-connect').style.display = 'none';
+      document.getElementById('lets-connect').style.backgroundcolor = '#000000';
     }
     if(document.getElementById('map') === null) {
-      document.getElementById('mapDiv').style.display = 'none';
+      document.getElementById('mapDiv').style.backgroundcolor = '#000000';
     }
+    if(bio.skills.length>0){
+      $("#header").append(HTMLskillsStart)
+      for(var i = 0; i<bio.skills.length; i++){
+      var formattedSkill = HTMLskills.replace("%data%",bio.skills[i])
+      $("#skills").append(formattedSkill); 
+      }
+    }
+    if(work.jobs.length>0){
+      $("#header").append(HTMLworkStart)
+      for (employer in jobs){
+        var HTMLworkEmployer = employer
+      }
+    }
+
   </script>
 </body>
 </html>
