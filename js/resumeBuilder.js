@@ -1,49 +1,45 @@
 var bio = {
-	"name" : "CMOI",	
+	"name" : "Craig Isesele",	
 	"skills" : ["introversion ", "chivalry ", "Java "],
-	"contact" : [
-	
+	"contacts" : [
 	{
 		"mobile" : "6139155344",
 		"email" : "cmoisesele@live.com",
-		"github" : "g-i-arc"
-		
-	},
-	
-	{
 		"twitter" : "@cmoitweet",
+		"github" : "g-i-arc",
 		"instagram" : "@cmoigram",
-		"snapchat" : "cmoichat"
+		"blog" : "",
+		"location" : "1725 Riverside Drive, Ottawa, ON"
 	}
 	],
-	"image" : "images/cmoi.jpg" 
+	"image" : "images/cmoi.jpg"
 }
 bio.age = "22"
 bio.quote = "life is a traffic jam"
 bio["role"] = "Software Engineer"
 
-/*var work = {}
-work["employer"] = "internet multimedia"
-work["years"] = "A month"
-work["position"] = "intern"
-*/
-
 var work = {
 	"jobs":[
 	{
 		"employer" : "Christ Embassy Ottawa",
-		"duration" : "September 2013 - present",
-		"position" : "technician"
+		"title" : "technician",
+		"dates" : "September 2013 - present",
+		"location" : "716 Industrial Avenue, Ottawa, ON",
+		"description" : "setting up mics"
 	},
 	{
 		"employer" : "internet multimedia",
-		"duration" : "August 2014",
-		"position" : "intern"
+		"title" : "intern",
+		"dates" : "August 2014",
+		"location" : "Internet Multimedia Office, Lagos, Nigeria",
+		"description" : "reviewed apps"
 	},
 	{
 		"employer" : "inner city mission",
-		"duration" : "August 2013",
-		"position" : "intern"
+		"title" : "intern",
+		"dates" : "August 2013",
+		"location" : "Inner City Mission, Lagos, Nigeria",
+		"description" : "studied python"
 	}
 	]
 }
@@ -72,22 +68,29 @@ var education = {
 	{
 		"name": "Global International College",
 		"location": "Lekki, Lagos, Nigeria",
-		"degree": " ",
+		"degree": "Lambton",
 		"major": ["GEng"],
 		"dates": 2012
 	}
 	]
 }
-/*
-var makeCourse = function(){
-	console.log("Write in coursive")
+//title, school, dates, url
+var onlineClasses = {
+	"classes": [
+	{
+		"title": "Intro to Javascript",
+		"school": "Udacity",
+		"dates": "",
+		"url": "udacity.com"
+	},
+	{
+		"title": "HTML",
+		"school": "Codecademy",
+		"dates": "",
+		"url" : "Codecademy.com"
+	}
+	]
+
 }
-var courses = 0
-while (bio.age === "22"){
-	makeCourse()
-	courses ++
-	if(courses === 10) bio.age++
-}*/
-//console.log(bio.age)
-//$("#main").prepend(work.position)
-//$("#main").append(bio["age"])
+
+$("#mapDiv").append(googleMap)

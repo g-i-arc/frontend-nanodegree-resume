@@ -1,64 +1,21 @@
 <!DOCTYPE html>
 
-<!--
-This is an HTML document. It contains information about how elements in the website
-are arranged. In other words, it describes the layout of a website.
-
-I can't wait to see the resumes you put together!
-
-Cameron Pittman, Udacity Course Developer
--->
-
-<!--
-The <head> of a website generally links to important resources the page will
-need to load. You'll see a lot of <link>s to CSS files for styles and
-<scripts> for JavaScript files to build interactions.
--->
 <head>
   <!-- This tells the browser how to read the document. -->
   <meta charset="utf-8">
-
   <!-- Tells the browser what the title of this page should be. -->
   <title>Resume</title>
-
   <!-- Load the page styles. -->
   <link href="css/style.css" rel="stylesheet">
-
-  <!--
-  jQuery is a common JavaScript library for reading and making changes to the
-  Document Object Model (DOM). The DOM is a tree that contains information
-  about what is actually visible on a website.
-
-  While HTML is a static document, the browser converts HTML to the
-  DOM and the DOM can change. In fact, JavaScript's power comes from
-  its ability to manipulate the DOM, which is essentially a JavaScript
-  object. When JavaScript makes something interesting happen on a
-  website, it's likely the action happened because JavaScript changed
-  the DOM. jQuery is fast and easy to use, but it doesn't do anything
-  you can't accomplish with vanilla (regular) JavaScript.
-  -->
   <script src="js/jQuery.js"></script>
-
-  <!-- More on helper.js in the class -->
   <script src="js/helper.js"></script>
 
-  <!--
-  Uncomment the <script> tag below when you're ready to add an interactive
-  Google Map to your resume!
-  -->
-<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
   <meta name="viewport" content="width=device-width">
 </head>
 <body>
-  <div id="main">  <!-- You'll be deleting this line in the course -->
-
-    <!--
-    Everything from here to the <script> tag below is the skeleton of your
-    website. Your code will add information to each of the sections of the
-    resume below. You can pretty easily figure out what each section will
-    display by looking at the id or at what's written between the <h2> tags.
-    -->
+  <div id="main"> 
     <div id="header" class="center-content clear-fix">
       <ul id="topContacts" class="flex-box"></ul>
     </div>
@@ -80,6 +37,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
         <ul id="footerContacts" class="flex-box">
       </ul>
     </div>
+    <div id="log"></div>
   </div>
 
   <!--
@@ -90,29 +48,13 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
   <script src="js/resumeBuilder.js"></script>
 
 
-  <!--
-  These scripts are written in JavaScript. You'll be breaking them down as part of
-  a quiz. Essentially, the next few lines are checking to see if you have not
-  changed each section of the resume. If you have not made any changes to a section
-  of the resume, then that part of the resume does not show up. More on this in the
-  course.
-  -->
+  <!--and it begins-->
 
   <script type="text/javascript">
-    // Notice how all of a sudden there's JavaScript inside this HTML
-    // document? You can write JavaScript between <script> tags. At the end of your
-    // JavaScript, don't forget the closing script tag with the slash (/).
-
-
-    // Also, this is a JavaScript style comment. You can comment in JavaScript with:
-
-    //   two slashes for all following characters on a single line, or
-
-    /*
-        an opening and closing set of slash asterisks for block comments.
-    */
-    //getElementsByTagName
-
+    
+$(document).click(function(loc){
+  logClicks(loc.pageX, loc.pageY)
+});
     if(document.getElementsByClassName('flex-item').length === 0) {
       document.getElementById('topContacts').style.backgroundcolor = '#000000';
     }
@@ -134,20 +76,106 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     if(document.getElementById('map') === null) {
       document.getElementById('mapDiv').style.backgroundcolor = '#000000';
     }
-    if(bio.skills.length>0){
+
+bio.display = function(){
+  //Header
+  var name = HTMLheaderName.replace("%data%", bio.name)
+  $("#header").append(name)
+  var role = HTMLheaderRole.replace("%data%", bio.role)
+  $("#header").append(role)
+
+  //topContacts
+  var contact = 0
+  if(bio.contacts.length>0){
+    var mobile = HTMLmobile.replace("%data%", bio.contacts[contact].mobile)
+    var email = HTMLemail.replace("%data%", bio.contacts[contact].email)
+    var twitter = HTMLtwitter.replace("%data%", bio.contacts[contact].twitter)
+    var github = HTMLgithub.replace("%data%", bio.contacts[contact].github)
+    var location = HTMLlocation.replace("%data%", bio.contacts[contact].location)
+    var info = mobile + email + twitter + github + location
+    $("#topContacts").append(info)
+  }
+  //Skills
+     if(bio.skills.length>0){
       $("#header").append(HTMLskillsStart)
       for(var i = 0; i<bio.skills.length; i++){
       var formattedSkill = HTMLskills.replace("%data%",bio.skills[i])
       $("#skills").append(formattedSkill); 
       }
     }
+  }
+
+work.display = function(){
     if(work.jobs.length>0){
-      $("#header").append(HTMLworkStart)
-      for (employer in jobs){
-        var HTMLworkEmployer = employer
+      for (job in work.jobs){
+        $("#workExperience").append(HTMLworkStart)
+        var employer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer)
+        var title = HTMLworkTitle.replace("%data%", work.jobs[job].title)
+        var dates = HTMLworkDates.replace("%data%", work.jobs[job].dates)
+        //var location = HTMLworkLocation.replace("%data%", work.jobs[job].location)
+        var description = HTMLworkDescription.replace("%data%", work.jobs[job].description)
+        var position = employer + title + dates + description
+        $(".work-entry:last").append(position)
       }
     }
+  }
 
+project.display = function(){
+  if(project.projects.length>0){
+    for (stuff in project.projects){
+      $("#projects").append(HTMLprojectStart)
+      var title = HTMLprojectTitle.replace("%data%",project.projects[stuff].title)
+      var dates = HTMLprojectDates.replace("%data%",project.projects[stuff].dates)
+      var description = HTMLprojectDescription.replace("%data%",project.projects[stuff].description)
+      var image = HTMLprojectImage.replace("%data%",project.projects[stuff].image)
+      var final = title + dates + description + image
+      $(".project-entry:last").append(final)
+    }
+  }
+}
+
+//function displayProjects(){}
+education.display = function(){
+  if(education.schools.length>0){
+    for (school in education.schools){
+      $("#education").append(HTMLschoolStart)
+      var name = HTMLschoolName.replace("%data%", education.schools[school].name)
+      var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree)
+      var dates = HTMLschoolDates.replace("%data%", education.schools[school].dates)
+      //var location = HTMLschoolLocation.replace("%data%", education.schools//[school].location)
+      var major = HTMLschoolMajor.replace("%data%", education.schools[school].major)
+      var course = name + degree + dates + major
+      $(".education-entry:last").append(course)
+    }
+  }
+}
+
+function locationizer(work_obj) {
+    var locations = [""]
+    if(work_obj.jobs.length>0){
+      for (job in work_obj.jobs){
+          locations.push(work_obj.jobs[job].location)
+      }
+    }
+    return locations
+}
+
+function inName(oldName) {
+    var finalName = oldName;
+    names = oldName.split(" ")
+    names[1] = names[1].toUpperCase()
+    names[0] = names[0].slice(0,1).toUpperCase() + names[0].slice(1).toLowerCase()
+    finalName = names.join(" ")
+    return finalName;
+}
+
+console.log(locationizer(work));
+bio.display()
+work.display()
+project.display()
+education.display()
+$('#main').append(internationalizeButton)
+//$("#mapDiv").append(googleMap)
   </script>
 </body>
 </html>
